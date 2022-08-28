@@ -8,6 +8,7 @@ import (
 
 type Authorization interface {
 	CreateUser(user restgo.User) (int, error)
+	GetUser(username, password string) (restgo.User, error)
 }
 
 type TodoList interface{}
