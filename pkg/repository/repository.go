@@ -11,7 +11,9 @@ type Authorization interface {
 	GetUser(username, password string) (restgo.User, error)
 }
 
-type TodoList interface{}
+type TodoList interface {
+	Create(userId int, list restgo.TodoList) (int, error)
+}
 
 type TodoItem interface{}
 
@@ -25,6 +27,7 @@ func NewRepository(db *sqlx.DB) *Repository {
 
 	return &Repository{
 		Authorization: NewAuthPostgres(db),
+		TodoList:      NewTodoListPostgres(db),
 	}
 
 }
