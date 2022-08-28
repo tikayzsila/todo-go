@@ -1,8 +1,13 @@
 package service
 
-import "todo-app/pkg/repository"
+import (
+	restgo "todo-app"
+	"todo-app/pkg/repository"
+)
 
-type Authorization interface{}
+type Authorization interface {
+	CreateUser(user restgo.User) (int, error)
+}
 
 type TodoList interface{}
 
@@ -16,6 +21,8 @@ type Service struct {
 
 func NewService(repos *repository.Repository) *Service {
 
-	return &Service{}
+	return &Service{
+		Authorization: NewAuthService(repos.Authorization),
+	}
 
 }
